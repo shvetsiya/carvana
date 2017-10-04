@@ -1,0 +1,39 @@
+*~
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Coverage
+.coverage
+covhtml
+
+# Translations
+*.mo
+*.pot
+
+# IPython Notebook
+.ipynb_checkpoints
+
+# dotenv
+.env
+
+# helpers
+ekami/
+petrosgk/
+heng/
+
+
+# Input/Output for models
+input/
+output/
+validations/
+submits/
+logs/
+predictions/
+
+# SLURM jobs output
+job_*.log

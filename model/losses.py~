@@ -1,0 +1,24 @@
+from torch import nn, log
+
+
+class Loss:
+    def __init__(self, dice_weight=1):
+        self.nll_loss = nn.BCELoss()
+        self.dice_weight = dice_weight
+
+    def __call__(self, preds, targets):
+        loss = self.nll_loss(preds, targets)
+        if self.dice_weight:
+            smooth = 1e-10
+            num = targets.size(0)
+            
+            m1 = preds.view(num, -1)                
+            m2 = targets.view(num, -1)
+
+            intersaction = (m1*m2).sum(1) + smooth
+            tsquares = m1.sum(1) + m2.sum(1) + smooth            
+
+            tot_dice = 2*(intersaction/tsquares).sum()
+            loss += 1.0 - tot_dice/num 
+	    #loss -= log(tdice/num) #ternaus	
+        return loss
